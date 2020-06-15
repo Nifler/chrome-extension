@@ -20,6 +20,8 @@ function searchPhone() {
                 var phone = numbers[j].replace(/\D+/g, '');
                 if (phone.charAt(0) === '3') {
                     phone = '04' + phone;
+                } else {
+                    phone = '05' + phone;
                 }
 
                 var call = document.createElement('a');
