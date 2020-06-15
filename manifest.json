@@ -10,12 +10,10 @@
     "64": "images/phone_64.png",
     "128": "images/phone_128.png"
   },
-
   "content_scripts": [
     {
-      "matches": [ "https://*/","http://*/"],
-      "js": [ "content_scripts/end.js"],
-      "run_at": "document_end"
+      "matches": ["*://*/*"],
+      "js": ["libs/jquery-3.5.1.min.js", "content_scripts/script.js"]
     }
   ],
   "permissions": ["http://*/","https://*/"],
@@ -29,5 +27,9 @@
     },
     "default_title": "Empty",
     "default_popup": "popup/popup.html"
-  }
+  },
+  "web_accessible_resources": [
+    "/images/phone_16.png",
+    "/images/call-history.png"
+  ]
 }
