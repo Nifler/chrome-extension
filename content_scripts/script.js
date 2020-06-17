@@ -1,4 +1,5 @@
 function searchPhone() {
+    console.log('add phone');
     var xpr =
         document.evaluate(
             'descendant-or-self::text()[not(parent::A) and string-length(normalize-space(self::text())) >= 10]',
@@ -18,7 +19,7 @@ function searchPhone() {
             for (var j = 1; j < numbers.length; j += 2) {
 
                 var phone = numbers[j].replace(/\D+/g, '');
-                if (phone.charAt(0) === '3') {
+                if (phone.charAt(0) + phone.charAt(1) + phone.charAt(2) === '380') {
                     phone = '04' + phone;
                 } else {
                     phone = '05' + phone;
@@ -30,7 +31,7 @@ function searchPhone() {
                 call.innerHTML = "<img src='" + callImg + "' alt='call'>";
 
                 var history = document.createElement('a');
-                history.href = 'https://ojowo.com/call?number=' + phone;
+                history.href = 'https://ojowo.com/admin/call?number=' + phone;
                 var historyImg = chrome.extension.getURL('/images/call-history.png');
                 history.innerHTML = "<img src='" + historyImg + "' width='16' height='16' alt='call'>";
 
@@ -43,4 +44,4 @@ function searchPhone() {
     }
 }
 
-searchPhone();
+setTimeout(searchPhone, 5000);
