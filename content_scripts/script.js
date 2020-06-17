@@ -1,5 +1,4 @@
 function searchPhone() {
-    console.log('add phone');
     var xpr =
         document.evaluate(
             'descendant-or-self::text()[not(parent::A) and string-length(normalize-space(self::text())) >= 10]',
@@ -25,13 +24,24 @@ function searchPhone() {
                     phone = '05' + phone;
                 }
 
-                var call = document.createElement('a');
-                call.href = 'tel:' + phone;
-                var callImg = chrome.extension.getURL('/images/phone_16.png');
-                call.innerHTML = "<img src='" + callImg + "' alt='call'>";
 
-                var history = document.createElement('a');
-                history.href = 'https://ojowo.com/admin/call?number=' + phone;
+                var call = document.createElement('span');
+                call.addEventListener("click", function(event){
+                    event.stopPropagation();
+                    window.location.assign('tel:' + phone);
+                });
+                var callImg = chrome.extension.getURL('/images/phone_16.png');
+                call.innerHTML = "" +
+                    "<img " +
+                    "id='ojowo-call' " +
+                    "src='" + callImg + "' " +
+                    "alt='call'>";
+
+                var history = document.createElement('span');
+                history.addEventListener("click", function(event){
+                    event.stopPropagation();
+                    window.location.assign('https://ojowo.com/admin/call?number=' + phone);
+                });
                 var historyImg = chrome.extension.getURL('/images/call-history.png');
                 history.innerHTML = "<img src='" + historyImg + "' width='16' height='16' alt='call'>";
 
@@ -39,9 +49,16 @@ function searchPhone() {
                 parent.appendChild(history);
                 parent.appendChild(document.createTextNode(numbers[j+1]));
             }
-            parent.normalize();
         }
     }
 }
 
-setTimeout(searchPhone, 5000);
+function refreshPhone(){
+    if($('#ojowo-call').length) {
+        return;
+    }
+    searchPhone();
+}
+
+setTimeout(refreshPhone,3000);
+setInterval(refreshPhone, 10000);
