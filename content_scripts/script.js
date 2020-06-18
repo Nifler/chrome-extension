@@ -28,22 +28,23 @@ function searchPhone() {
                 var call = document.createElement('span');
                 call.addEventListener("click", function(event){
                     event.stopPropagation();
-                    window.location.assign('tel:' + phone);
+                    window.open('tel:' + phone);
                 });
                 var callImg = chrome.extension.getURL('/images/phone_16.png');
                 call.innerHTML = "" +
                     "<img " +
                     "id='ojowo-call' " +
                     "src='" + callImg + "' " +
+                    "style='padding:0 5px;' " +
                     "alt='call'>";
 
                 var history = document.createElement('span');
                 history.addEventListener("click", function(event){
                     event.stopPropagation();
-                    window.location.assign('https://ojowo.com/admin/call?number=' + phone);
+                    window.open('https://ojowo.com/admin/call?number=' + phone);
                 });
                 var historyImg = chrome.extension.getURL('/images/call-history.png');
-                history.innerHTML = "<img src='" + historyImg + "' width='16' height='16' alt='call'>";
+                history.innerHTML = "<img src='" + historyImg + "' width='16' height='16' style='padding:0 5px;' alt='call'>";
 
                 parent.appendChild(call);
                 parent.appendChild(history);
